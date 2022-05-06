@@ -1,0 +1,364 @@
+
+<CustomSnackbar>
+    MDIconButton:
+        pos_hint: {'center_y': .5}
+        icon: root.icon
+
+
+
+<MyLabel@MDLabel>
+    markup: True
+    outline_color: (145/255,249/255,255/255,1)
+    outline_width: 1
+
+
+
+<Main_Page>
+    screen_manager: screen_manager
+    navigator: navigator
+
+    MDFloatLayout:
+        size: root.width, root.height
+
+        id: main
+
+
+
+
+        canvas.before:
+            Color:
+                rgba: (255/255, 255/255, 255/255, 1)
+
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'back1.jpg'
+
+        MDToolbar:
+            id: toolbar
+            pos_hint: {'top': 1}
+            md_bg_color: (46/255, 12/255, 171/255, 1)
+            title: '[font=ALGER]Game[/font]'
+            markup: True
+
+
+            left_action_items: [["menu", lambda x: root.open_navigator()]]
+            right_action_items: [["dots-vertical", lambda x: root.dialog_box()]]
+
+
+
+
+
+
+        MDNavigationLayout:
+
+            ScreenManager:
+                id: screen_manager
+                MDScreen:
+                    name: "login"
+
+                    MDBoxLayout:
+                        radius_rectangle: 20
+                        id: box
+                        size_hint: (None, None)
+                        width: '350dp'
+                        height: '500dp'
+                        pos_hint: {'center_x':0.5, 'center_y': 0.45}
+
+                        canvas.before:
+                            Color:
+                                rgba: (55/255, 22/255, 11/255, 1)
+
+                            Line:
+                                rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], self.radius_rectangle)
+                                width: 3.5
+
+                        MDFloatLayout:
+                            id: float_layout
+                            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+
+                            canvas.before:
+                                Color:
+                                    rgba: (0/255, 3/255, 97/255, 0.5)
+                                RoundedRectangle:
+                                    size: box.size
+                                    pos: box.pos
+                                    radius: [20]
+
+                            MDLabel:
+                                text: '[font=ALGER]Login To Play[/font]'
+                                pos_hint: {'center_x':0.5, 'center_y':0.9}
+                                size_hint: (None, None)
+                                width: 300
+                                height:50
+                                font_size: 40
+                                markup: True
+                                outline_color: (145/255,249/255,255/255,1)
+                                outline_width: 1
+
+
+
+                            MDTextField:
+
+                                hint_text: "Name"
+                                id: Players_Name
+                                pos_hint: {'center_x':0.5, 'center_y':0.7}
+                                size_hint: (0.5,0.1)
+                                line_color_focus: (145/255,249/255,255/255,1)
+                                line_color_normal: (145/255,249/255,255/255,1)
+                                mode: "rectangle"
+
+                            MDRectangleFlatIconButton:
+                                text: 'Start'
+                                icon: 'baseball'
+                                pos_hint: {'center_x':0.5, 'center_y':0.2}
+                                size_hint:(0.65, 0.1)
+                                line_color: (145/255,249/255,255/255,1)
+                                text_color: (145/255,249/255,255/255,1)
+                                icon_color: (145/255,249/255,255/255,1)
+
+                                on_press:
+                                    root.start_to_play()
+                                    #root.screen_manager.current = 'game'
+
+
+
+
+                MDScreen:
+                    name: "game"
+
+                    MDFloatLayout:
+
+
+                        canvas.before:
+                            Color:
+                                rgba: (83/255,59/255,168/255,1)
+
+                            Rectangle:
+                                size: (self.width,self.height-toolbar.height)
+                                pos: self.pos
+
+                        Image:
+                            source: "left_rock.png"
+                            pos_hint: {'center_y': 0.5, 'center_x': 0.09}
+                            id: left_hand
+
+
+                        Image:
+                            source: "right_rock.png"
+                            pos_hint: {'center_x': 0.91, 'center_y':0.5}
+                            id: right_hand
+
+
+
+
+                        MyLabel:
+                            text: '[font=BRLNSB]None[/font]'
+                            opacity: 0
+                            id: label
+                            pos_hint: {'center_x': 0.6, 'center_y':0.4}
+                            font_size: 0
+                            size_hint: (0.5,0.2)
+
+
+                        MyLabel:
+                            text: '[font=BRLNSB]None[/font]'
+                            opacity: 0
+                            id: label2
+                            pos_hint: {'center_x': 0.6, 'center_y':0.7}
+                            font_size: 0
+                            size_hint: (0.8,0.2)
+
+                        MyLabel:
+                            text: '[font=BRLNSB]Rock Paper and Scissors[/font]'
+
+                            pos_hint: {'center_x': 0.5, 'center_y':0.8}
+                            font_size: 30
+                            size_hint: (None, None)
+                            width: 350
+                            height: 50
+
+                        MyLabel:
+                            text: '[font=BRLNSB]Player:[/font]'
+
+                            pos_hint: {'x': 0.78, 'center_y':0.8}
+                            size_hint: (None, None)
+                            width: 75
+                            height: 50
+                            font_size: 20
+
+                        MyLabel:
+
+                            text: '[font=BRLNSB]Name[/font]'
+                            id: Name_of_player
+                            pos_hint: {'x': 0.88, 'center_y':0.8}
+                            size_hint: (None, None)
+                            width: 60
+                            height: 50
+                            font_size: 20
+
+                        MyLabel:
+                            text: '[font=BRLNSB]Rounds won:[/font]'
+
+                            pos_hint: {'x': 0.78, 'center_y':0.75}
+                            size_hint: (None, None)
+                            width: 115
+                            height: 50
+                            font_size: 20
+
+                        MyLabel:
+                            text: '[font=BRLNSB]0[/font]'
+                            id: score
+                            pos_hint: {'x': 0.93, 'center_y':0.75}
+                            size_hint: (None, None)
+                            width: 115
+                            height: 50
+                            font_size: 20
+
+                        MyLabel:
+                            text: '[font=BRLNSB]Rounds won:[/font]'
+
+                            pos_hint: {'x': 0.05, 'center_y':0.75}
+                            size_hint: (None, None)
+                            width: 115
+                            height: 50
+                            font_size: 20
+
+                        MyLabel:
+                            text: '[font=BRLNSB]0[/font]'
+                            id: opponent_score
+                            pos_hint: {'x': 0.2, 'center_y':0.75}
+                            size_hint: (None, None)
+                            width: 115
+                            height: 50
+                            font_size: 20
+
+                        MyLabel:
+
+                            text: '[font=BRLNSB]Opponent:[/font]'
+                            size_hint: (None, None)
+                            width: 107
+                            height: 50
+                            pos_hint: {'x': 0.05, 'center_y':0.8}
+                            font_size: 20
+
+
+                        MDRectangleFlatIconButton:
+                            text: 'Play'
+                            icon: 'google-controller'
+                            on_press: root.shoot()
+                            pos_hint: {'center_x': 0.5, 'center_y':0.2}
+
+
+                        MDRectangleFlatIconButton:
+                            text: 'Rock'
+                            icon: 'calendar-multiselect'
+                            id: select
+                            on_press: root.menu.open()
+                            pos_hint: {'center_x': 0.8, 'center_y':0.2}
+
+
+                Screen:
+                    name: 'stats'
+
+                    MDFloatLayout:
+
+
+                        MDBoxLayout:
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                            radius_box: 20
+                            size_hint: (None, None)
+                            width: 600
+                            height: 400
+                            id: line
+                            canvas.before:
+
+                                Color:
+                                    rgba: (32/255,1/255,143/255,1)
+
+                                Line:
+                                    rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], self.radius_box)
+                                    width: 5
+
+                            MDBoxLayout:
+                                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                                size_hint: (None, None)
+                                width: 600
+                                height: 400
+                                canvas.before:
+
+                                    Color:
+                                        rgba: (126/255,117/255,158/255,1)
+
+                                    RoundedRectangle:
+                                        size: self.size
+                                        pos: self.pos
+                                        radius: [20]
+
+                                ScrollView:
+                                    MDList:
+                                        id: list_of_players
+
+
+        MDNavigationDrawer:
+            id: navigator
+
+
+
+
+            Panel:
+                screen_manager: screen_manager
+                navigator: navigator
+
+
+                MDFloatLayout:
+
+                    canvas.before:
+                        Color:
+                            rgba: (83/255,59/255,168/255,1)
+
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    FitImage:
+                        radius: [5,35,5,35]
+                        source: 'back2.jpg'
+                        size_hint: (None, None)
+                        width: 200
+                        height: 200
+                        pos_hint: {'center_y': 0.8, 'center_x': 0.5}
+
+                    MDList:
+
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                        OneLineAvatarIconListItem:
+                            text: "Main Page"
+
+
+
+                            on_press:
+
+                                root.remove_list()
+                                root.screen_manager.current = 'login'
+                                root.navigator.set_state('close')
+
+                            IconLeftWidget:
+                                icon: "plus"
+
+                        OneLineAvatarIconListItem:
+                            text: "stats"
+
+
+
+                            on_press:
+                                root.show_list()
+                                root.screen_manager.current = 'stats'
+                                root.navigator.set_state('close')
+
+                            IconLeftWidget:
+                                icon: "plus"
+
+
